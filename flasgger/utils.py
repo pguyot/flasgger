@@ -13,7 +13,7 @@ from six import string_types, text_type
 from copy import deepcopy
 from functools import wraps
 from importlib import import_module
-from collections import OrderedDict
+from collections import OrderedDict, Iterable
 from flask import Response
 from flask import abort
 from flask import current_app
@@ -86,7 +86,7 @@ def get_specs(rules, ignore_verbs, optional_fields, sanitizer, doc_dir=None):
                 if verb in endpoint.methods:
                     methods[verb.lower()] = endpoint
             elif getattr(endpoint, 'methods', None) is not None:
-                if isinstance(endpoint.methods, set):
+                if isinstance(endpoint.methods, Iterable):
                     if verb in endpoint.methods:
                         verb = verb.lower()
                         methods[verb] = getattr(endpoint.view_class, verb)
